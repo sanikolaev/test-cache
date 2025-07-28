@@ -19,8 +19,9 @@ jobs:
       - name: Run dummy command
         id: run
         run: |
-          mkdir -p dummy-dir && date >> dummy-dir/file.txt
-          echo "corpus_size=$(ls dummy-dir|wc -l)" >> $GITHUB_OUTPUT
+          mkdir -p dummy-dir
+          date >> dummy-dir/file.txt
+          echo "corpus_size=$(wc -l dummy-dir/file.txt)" >> $GITHUB_OUTPUT
           cat dummy-dir/file.txt >> $GITHUB_STEP_SUMMARY
 
       - name: Save cache
@@ -37,7 +38,7 @@ jobs:
     steps:
       - name: Delete cache with key "dummy-key"
         run: |
-          curl -X DELETE \
+          curl -s -X DELETE \
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github+json" \
             https://api.github.com/repos/${{ github.repository }}/actions/caches?key=dummy-key
