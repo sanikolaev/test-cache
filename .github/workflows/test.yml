@@ -20,7 +20,7 @@ jobs:
         run: |
           mkdir -p dummy-dir && date >> dummy-dir/file.txt
           echo "corpus_size=$(ls dummy-dir|wc -l)" >> $GITHUB_OUTPUT
-          cat dummy-dir/file.txt >> $GITHUB_OUTPUT
+          cat dummy-dir/file.txt >> $GITHUB_STEP_SUMMARY
 
       - name: Save cache
         uses: actions/cache/save@v3
