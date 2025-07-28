@@ -19,7 +19,7 @@ jobs:
       - name: Run dummy command
         run: |
           mkdir -p dummy-dir && date >> dummy-dir/file.txt
-          echo "corpus_size=$(ls dummy-dir|wc -l)" 
+          echo "corpus_size=$(ls dummy-dir|wc -l)" >> $GITHUB_OUTPUT
 
       - name: Save cache
         uses: actions/cache/save@v3
