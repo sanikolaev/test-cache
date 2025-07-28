@@ -17,14 +17,12 @@ jobs:
             restore-key-
 
       - name: Run dummy command
-        run: mkdir -p dummy-dir && echo 123 > dummy-dir/file.txt
-
-      - name: Generate timestamp
-        id: timestamp
-        run: echo "ts=$(date +%s)" >> $GITHUB_OUTPUT
+        run: |
+          mkdir -p dummy-dir && date >> dummy-dir/file.txt
+          echo "corpus_size=$(ls dummy-dir|wc -l)" 
 
       - name: Save cache
         uses: actions/cache/save@v3
         with:
           path: dummy-dir
-          key: restore-key-${{ steps.timestamp.outputs.ts }}
+          key: restore-key-${{ steps.timestamp.outputs.corpus_size }}
