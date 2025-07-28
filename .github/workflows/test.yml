@@ -17,6 +17,7 @@ jobs:
             restore-key-
 
       - name: Run dummy command
+        id: run
         run: |
           mkdir -p dummy-dir && date >> dummy-dir/file.txt
           echo "corpus_size=$(ls dummy-dir|wc -l)" >> $GITHUB_OUTPUT
@@ -26,4 +27,4 @@ jobs:
         uses: actions/cache/save@v3
         with:
           path: dummy-dir
-          key: restore-key-${{ steps.timestamp.outputs.corpus_size }}
+          key: restore-key-${{ steps.run.outputs.corpus_size }}
